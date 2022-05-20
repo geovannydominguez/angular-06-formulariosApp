@@ -1,0 +1,92 @@
+<h2>Reactivos <small>Dinámicos</small></h2>
+<hr>
+
+<form autocomplete="off" [formGroup]="miFormulario" (ngSubmit)="guardar()">
+    
+    <!-- Campo Nombre -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            
+            <!-- formControlName: sincroniza un FormControl en un FormGroup existente con un elemento del formulario por su nombre -->
+            <input class="form-control"
+                   placeholder="Nombre de la persona"
+                   formControlName="nombre">
+            
+            <span class="form-text text-danger"
+                  *ngIf="campoNoValido('nombre')">
+                  Este campo es obligatorio
+            </span>
+
+        </div>
+    </div>
+
+    <!-- Campo Agregar Favorito. Es independiente del Formulario -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+
+            <div class="input-group">
+
+                <!-- Como este campo es un control independiente del formulario, es decir, no es
+                    parte del formlario como tal. Solo sirve como un campo que permite agregar contenido al Formulario.
+                    Por esta razón, no se puede utilizar formControlName para enlazar al control del FormGroup porque este control 
+                    no existe en el formulario.
+                    
+                    En este caso, se debe utilizar formControl y entre [] porque sino solo se estaría asignando un string-->
+
+                <input class="form-control"
+                       placeholder="Agregar favorito"
+                       [formControl]="nuevoFavorito"
+                       (keyup.enter)="agregarFavorito()">
+                
+                <button class="btn btn-outline-primary"
+                        type="button"
+                        (click)="agregarFavorito()">Agregar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Lista de juegos favoritos -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Favoritos</label>
+        
+        <div class="col-sm-9" formArrayName="favoritos">
+
+            <div class="input-group mb-1"
+                 *ngFor="let fav of favoritosArr.controls; let i = index">
+                <input class="form-control"
+                       [formControlName]="i">
+                <button class="btn btn-outline-danger"
+                        type="button"
+                        (click)="borrar(i)">Eliminar</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button"
+                    class="btn btn-primary float-end"
+                    (click)="guardar()">Guardar</button>
+        </div>
+    </div>
+
+</form>
+
+
+<span>Valid</span>
+<pre>{{ miFormulario.valid }}</pre>
+<br>
+
+<span>Value</span>
+<pre>{{ miFormulario.value | json }}</pre>
+<br>
+
+<span>Agregar Juego</span>
+<pre>{{ nuevoFavorito.valid }}</pre>
+<br>
+<pre>{{ nuevoFavorito.value }}</pre>

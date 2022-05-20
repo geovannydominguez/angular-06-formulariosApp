@@ -1,0 +1,42 @@
+<h2>Formularios Template</h2>
+<small><p>Template Forms: Angular se encarga de manejar todo el formulario de manera automática. Todos los cambios o especificaciones de los detalles de los campos se lo realiza del lado del HTML. 
+    La mayor parte de la lógica se encuentra en el lado del template html.
+</p></small>
+<hr>
+
+<ul class="list-group">
+    <li class="list-group-item"
+        *ngFor="let item of templateMenu"    
+        [routerLink]="item.ruta"
+        routerLinkActive="active">
+        {{ item.texto }}
+    </li>
+
+</ul>
+
+<h2 class="mt-3">Formularios Reactive</h2>
+<small><p>Reactive Forms: Procupara que la parte del html sea lo más básico posible y que todo el trabajo pesado esté en la parte de Typescript.</p></small>
+<hr>
+
+<ul class="list-group">
+    <li class="list-group-item"
+        *ngFor="let item of reactiveMenu"    
+        [routerLink]="item.ruta"
+        routerLinkActive="active">
+        {{ item.texto }}
+    </li>
+
+</ul>
+
+<h2 class="mt-3">Validaciones</h2>
+<hr>
+
+<ul class="list-group">
+    <li class="list-group-item"
+        *ngFor="let item of authMenu"    
+        [routerLink]="item.ruta"
+        routerLinkActive="active">
+        {{ item.texto }}
+    </li>
+
+</ul>

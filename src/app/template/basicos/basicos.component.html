@@ -1,0 +1,105 @@
+<h1>Template: Básicos</h1>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <!-- Crear la referencia local #miFormulario de tipo ngForm. 
+             Esto sirve para enlazar la referencia de ngForm a la propiedad #miFormulario -->
+        <form (ngSubmit)="guardar()" 
+               #miFormulario="ngForm"
+               autocomplete="off">
+            
+            <!-- Campo Producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Producto</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           [ngModel]="initForm.producto"
+                           name="producto"
+                           placeholder="Nombre del producto"
+                           required="true"
+                           minlength="3">
+
+                    <span class="form-text text-danger"
+                          *ngIf="nombreInvalido()">
+                          Debe de ser de 3 letras.</span>
+
+                </div>
+            </div>
+
+            <!-- Campo Precio -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Precio</label>
+                <div class="col-sm-9">
+                    <input type="number"
+                           class="form-control"
+                           [ngModel]="initForm.precio"
+                           name="precio"
+                           placeholder="Precio del producto"
+                           required="true">
+                </div>
+
+                <span class="form-text text-danger"
+                          *ngIf="precioInvalido()">
+                          Debe de ser de mayor o igual que cero.</span>
+            </div>
+
+            <!-- Campo Existencias.
+                customMin es mi directiva personalizada.
+                minimo es una propiedad de mi directiva personalizada.
+            -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Existencias</label>
+                <div class="col-sm-9">
+                    <!-- Agrego minimo entre [] para que el valor sea un 0 entero y no string,
+                        es decir, con [] se indica que tome los valores de Typescript, en este caso,
+                        es un 0 entero. -->
+                    <input type="text"
+                           class="form-control"
+                           [ngModel]="initForm.existencias"
+                           name="existencias"
+                           customMin
+                           [minimo]="1"
+                           placeholder="Existencias del producto"
+                           required="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit"
+                            class="btn btn-primary float-end"
+                            [disabled]="miFormulario.invalid">
+                            Guardar
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <span>Valid</span>
+        <pre>{{ miFormulario.valid }}</pre>
+
+        <span>Prestine</span>
+        <pre>{{ miFormulario.pristine }}</pre>
+
+        <span>Touched</span>
+        <pre>{{ miFormulario.touched }}</pre>
+
+        <span>Value</span>
+        <pre>{{ miFormulario.value | json }}</pre>
+
+        <span>CustomDirective</span>
+        <pre>{{ miFormulario.controls['existencias']?.errors| json }}</pre>
+
+        
+    </div>
+</div>
