@@ -43,6 +43,7 @@ export class DinamicosComponent {
       nombre: this.nuevoJuego
     };
 
+    // ... spread operator para asegurar que no se va a enviar ninguna referencia al objeto
     this.persona.favoritos.push( { ...nuevoFavorito } );
     this.nuevoJuego = '';
   }
